@@ -21,6 +21,7 @@ public class GUI {
 	private static final String INDEX_CONFIG = "1";
 	private static final String INDEX_TRADUCTOR = "2";
 	private static final String INDEX_APRENDER = "3";
+	private static final String INDEX_PRACTICAR = "4";
 
 	private static JFrame mainFrame;
 
@@ -32,6 +33,7 @@ public class GUI {
 	private static JMenuItem mnTraductor;
 	private static JMenuItem mnAprender;
 	private static JMenuItem mnConfig;
+	private static JMenuItem mnPracticar;
 
 	private static final Color PANEL_GREY_BACKGROUND = new Color(36, 36, 36);
 
@@ -97,7 +99,7 @@ public class GUI {
 				cl.show(mainPanel, INDEX_TRADUCTOR);
 			}
 		});
-
+		
 		mnAprender = new JMenuItem("Learn");
 		mnAprender.setMnemonic(KeyEvent.VK_A);
 		mnAprender.setFont(new Font("Verdana", Font.BOLD, fontSize));
@@ -108,10 +110,22 @@ public class GUI {
 				cl.show(mainPanel, INDEX_APRENDER);
 			}
 		});
+		
+		mnPracticar = new JMenuItem("Practice");
+		mnPracticar.setMnemonic(KeyEvent.VK_P);
+		mnPracticar.setFont(new Font("Verdana", Font.BOLD, fontSize));
+		mnPracticar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cl.show(mainPanel, INDEX_PRACTICAR);
+			}
+		});
 
 		menuBar.add(mnConfig);
 		menuBar.add(mnTraductor);
 		menuBar.add(mnAprender);
+		menuBar.add(mnPracticar);
 
 		return menuBar;
 	}
@@ -125,6 +139,7 @@ public class GUI {
 		mainPanel.add(pnlConfig, INDEX_CONFIG);
 		mainPanel.add(pnlTraductor, INDEX_TRADUCTOR);
 		mainPanel.add(pnlAprender, INDEX_APRENDER);
+		mainPanel.add(pnlAprender, INDEX_PRACTICAR);
 
 		cl.show(mainPanel, INDEX_TRADUCTOR);
 

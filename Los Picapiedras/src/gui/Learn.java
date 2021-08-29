@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -37,7 +36,14 @@ public class Learn {
 	private static JButton btn3 = new JButton("3");
 	private static JButton btn4 = new JButton("4");
 
-	private static String[] fileNames;
+	private static String[] fileNames = { "a.png", "and.png", "ar.png", "b, but.png", "by, was.png", "c, can.png",
+			"cc, con.png", "ch, child.png", "com.png", "d.png", "dd, dis.png", "e, every.png", "ea.png", "ed.png",
+			"en, enough.png", "er.png", "f, from.png", "ff, to.png", "for.png", "g, go.png", "gg, were.png", "gh.png",
+			"h, have.png", "i.png", "in.png", "ing.png", "j, just.png", "k, knowledge.png", "l, like.png",
+			"m, more.png", "n, not.png", "o.png", "of.png", "ou, out.png", "ow.png", "p, people.png", "q, quite.png",
+			"r, rather.png", "s.png", "sh, shall.png", "st, still.png", "t, that.png", "th, this.png", "the.png",
+			"u, us.png", "v, very.png", "w, will.png", "wh, which.png", "with.png", "x, it.png", "y, you.png",
+			"z, as.png" };
 
 	private static int currentCorrectAnswer = getRandomInt();
 	private static String correctAnswer;
@@ -51,7 +57,6 @@ public class Learn {
 	public JPanel createContentLearn() {
 		JPanel panel = new JPanel();
 
-		fileNames = getFileNames("Answers/");
 		correctAnswer = selectRandom(fileNames);
 
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -156,32 +161,6 @@ public class Learn {
 		else if (answer == 4) {
 			changeButtonColor(false, 4);
 		}
-	}
-
-	private String[] getFileNames(String dir) {
-		// File[] files = new File(dir).listFiles();
-
-		// File[] files = new
-		// File(getClass().getClassLoader().getResource("/Answers").getFile()).listFiles();
-		//
-		// String[] array = new String[files.length];
-		//
-		// for (int i = 0; i < array.length; i++) {
-		// if (files[i].isFile()) {
-		// array[i] = files[i].getName();
-		// }
-		// }
-
-		String[] array = { "a.png", "and.png", "ar.png", "b, but.png", "by, was.png", "c, can.png", "cc, con.png",
-				"ch, child.png", "com.png", "d.png", "dd, dis.png", "e, every.png", "ea.png", "ed.png",
-				"en, enough.png", "er.png", "f, from.png", "ff, to.png", "for.png", "g, go.png", "gg, were.png",
-				"gh.png", "h, have.png", "i.png", "in.png", "ing.png", "j, just.png", "k, knowledge.png", "l, like.png",
-				"m, more.png", "n, not.png", "o.png", "of.png", "ou, out.png", "ow.png", "p, people.png",
-				"q, quite.png", "r, rather.png", "s.png", "sh, shall.png", "st, still.png", "t, that.png",
-				"th, this.png", "the.png", "u, us.png", "v, very.png", "w, will.png", "wh, which.png", "with.png",
-				"x, it.png", "y, you.png", "z, as.png", };
-
-		return array;
 	}
 
 	private static String selectRandom(String[] array) {
