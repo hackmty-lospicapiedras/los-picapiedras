@@ -3,6 +3,7 @@ package gui;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -57,7 +58,7 @@ public class GUI {
 	}
 
 	public static JFrame createFrame() {
-		JFrame frame = new JFrame("NOMBRE");
+		JFrame frame = new JFrame("Word-Swapper");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		Dimension screenDimensions = Toolkit.getDefaultToolkit().getScreenSize();
@@ -73,8 +74,11 @@ public class GUI {
 	private static JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 
+		int fontSize = 15;
+		
 		mnConfig = new JMenuItem("Config");
 		mnConfig.setMnemonic(KeyEvent.VK_C);
+		mnConfig.setFont(new Font("Verdana", Font.BOLD, fontSize));
 		mnConfig.addActionListener(new ActionListener() {
 
 			@Override
@@ -83,8 +87,9 @@ public class GUI {
 			}
 		});
 
-		mnTraductor = new JMenuItem("Traductor");
+		mnTraductor = new JMenuItem("Translator");
 		mnTraductor.setMnemonic(KeyEvent.VK_T);
+		mnTraductor.setFont(new Font("Verdana", Font.BOLD, fontSize));
 		mnTraductor.addActionListener(new ActionListener() {
 
 			@Override
@@ -93,8 +98,9 @@ public class GUI {
 			}
 		});
 
-		mnAprender = new JMenuItem("Aprender");
+		mnAprender = new JMenuItem("Learn");
 		mnAprender.setMnemonic(KeyEvent.VK_A);
+		mnAprender.setFont(new Font("Verdana", Font.BOLD, fontSize));
 		mnAprender.addActionListener(new ActionListener() {
 
 			@Override
