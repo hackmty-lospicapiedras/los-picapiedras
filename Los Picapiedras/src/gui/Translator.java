@@ -36,7 +36,7 @@ public class Translator {
 	private static final Color BLUE = new Color(115, 165, 186);
 	private static final Color PANEL_BACKGROUND_COLOR = new Color(45, 45, 45);
 	private static final Color SCROLL_BAR = new Color(60, 60, 60);
-
+	
 	public JPanel createContentTraductor() {
 		JPanel panel = new JPanel();
 
