@@ -21,13 +21,19 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
+import sounds.TranslatorSounds;
+
 public class Translator {
+
+	private static TranslatorSounds ts = new TranslatorSounds();
 
 	private static JPanel spContainer;
 
 	private static JScrollPane spOutput;
 
 	private static JTextArea taTraductorInput;
+	
+	private static JButton btnTranslate;
 
 	private static final Color GREY_TEXT_COLOR = new Color(237, 237, 237);
 	private static final Color GREY_TEXT_AREA = new Color(70, 70, 70);
@@ -157,14 +163,14 @@ public class Translator {
 		int inS = 35;
 		panel.setBorder(BorderFactory.createEmptyBorder(inT, inS, inT, inS));
 
-		JButton button = new JButton("Translate");
+		btnTranslate = new JButton("Translate");
 
-		button.setBackground(GREY_BUTTON);
-		button.setForeground(BLUE);
-		button.setFont(new Font("Verdana", Font.BOLD, 24));
-		button.setFocusPainted(false);
+		btnTranslate.setBackground(GREY_BUTTON);
+		btnTranslate.setForeground(BLUE);
+		btnTranslate.setFont(new Font("Verdana", Font.BOLD, 24));
+		btnTranslate.setFocusPainted(false);
 
-		button.addActionListener(new ActionListener() {
+		btnTranslate.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -172,7 +178,7 @@ public class Translator {
 			}
 		});
 
-		panel.add(button);
+		panel.add(btnTranslate);
 
 		return panel;
 	}
@@ -193,6 +199,7 @@ public class Translator {
 				spContainer.add(Box.createRigidArea(new Dimension(75, 0)));
 				continue;
 			}
+
 			spContainer.add(createImage(c));
 		}
 
@@ -200,6 +207,27 @@ public class Translator {
 		spContainer.repaint();
 		spOutput.revalidate();
 		spOutput.repaint();
+
+		btnTranslate.setEnabled(false);
+		
+		Runnable r = new Runnable() {
+
+			public void run() {
+				for (char c : charArray) {
+					if (c == ' ') {
+						ts.playSpaceSound();
+						continue;
+					}
+					if (c == '\n') {
+						continue;
+					}
+					ts.playCharacterSound(c);
+				}
+				btnTranslate.setEnabled(true);
+			}
+		};
+
+		new Thread(r).start();
 	}
 
 	private JLabel createImage(char imageName) {
@@ -209,11 +237,9 @@ public class Translator {
 		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 		if (letters.contains(name)) {
-//			icon = new ImageIcon(getClass().getClassLoader().getResource("Braille/" + name + ".png"));
 			icon = new ImageIcon(getClass().getClassLoader().getResource(name + ".png"));
 		}
 		else {
-//			icon = new ImageIcon(getClass().getClassLoader().getResource("Braille/null.png"));
 			icon = new ImageIcon(getClass().getClassLoader().getResource("null.png"));
 		}
 
