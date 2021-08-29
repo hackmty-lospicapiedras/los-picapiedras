@@ -375,7 +375,6 @@ public class Practice {
 			Runnable r = new Runnable() {
 
 				public void run() {
-
 					ts.playStringSound(correctAnswer);
 				}
 			};
