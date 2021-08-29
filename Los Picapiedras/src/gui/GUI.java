@@ -69,7 +69,6 @@ public class GUI {
 
 	public static JFrame createFrame() {
 		JFrame frame = new JFrame("Word-Swapper");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		Dimension screenDimensions = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -98,7 +97,7 @@ public class GUI {
 		});
 
 		mnAprender = new JMenuItem("Learn");
-		mnAprender.setMnemonic(KeyEvent.VK_A);
+		mnAprender.setMnemonic(KeyEvent.VK_L);
 		mnAprender.setFont(new Font("Verdana", Font.BOLD, fontSize));
 		mnAprender.addActionListener(new ActionListener() {
 
@@ -116,11 +115,12 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cl.show(mainPanel, INDEX_PRACTICAR);
+				Practice.init();
 			}
 		});
 
 		mnConfig = new JCheckBoxMenuItem("Spoken Content");
-		mnConfig.setMnemonic(KeyEvent.VK_C);
+		mnConfig.setMnemonic(KeyEvent.VK_S);
 		mnConfig.setFont(new Font("Verdana", Font.BOLD, fontSize));
 		mnConfig.setSelected(true);
 		mnConfig.addItemListener(new ItemListener() {
