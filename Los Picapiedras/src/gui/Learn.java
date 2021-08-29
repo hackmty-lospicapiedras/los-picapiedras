@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -28,7 +29,7 @@ public class Learn {
 	private static JButton btn2 = new JButton("2");
 	private static JButton btn3 = new JButton("3");
 	private static JButton btn4 = new JButton("4");
-	
+
 	private static int currentCorrectAnswer = 1;
 
 	private static final Color OPTIONS_BACKGROUND = new Color(40, 40, 40);
@@ -73,12 +74,11 @@ public class Learn {
 		btn2 = createButton(2, "2");
 		btn3 = createButton(3, "3");
 		btn4 = createButton(4, "4");
-		
+
 		pnlBot.add(btn1);
 		pnlBot.add(btn2);
 		pnlBot.add(btn3);
 		pnlBot.add(btn4);
-
 
 	}
 
@@ -99,15 +99,15 @@ public class Learn {
 
 	private static JButton createButton(int identifier, String title) {
 		JButton button = new JButton(title);
-		
+
 		button.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				checkAnswer(identifier);
 			}
 		});
-		
+
 		return button;
 	}
 
@@ -115,7 +115,7 @@ public class Learn {
 		Random r = new Random();
 		int max = 4;
 		int min = 1;
-		
+
 		if (answer == currentCorrectAnswer) {
 			System.out.println(currentCorrectAnswer + " is the correct answer");
 			currentCorrectAnswer = r.nextInt((max - min) + 1) + min;
@@ -136,7 +136,36 @@ public class Learn {
 		else if (answer == 4) {
 			btn4.setBackground(Color.RED);
 		}
+		String[] a = getFileNames("Braille/");
+
+		System.out.println(selectRandom(a));
+
 		System.out.println(answer);
 	}
-	
+
+	private static String[] getFileNames(String dir) {
+		File[] files = new File(dir).listFiles();
+
+		String[] array = new String[files.length];
+
+		for (int i = 0; i < array.length; i++) {
+			if (files[i].isFile()) {
+				array[i] = files[i].getName();
+			}
+		}
+
+		return array;
+	}
+
+	private static String selectRandom(String[] array) {
+		int length = array.length;
+
+		Random r = new Random();
+		int max = length;
+		int min = 0;
+		int rand = r.nextInt((max - min) + 1) + min;
+
+		return array[rand];
+	}
+
 }
