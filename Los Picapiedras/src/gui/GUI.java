@@ -70,6 +70,8 @@ public class GUI {
 	public static JFrame createFrame() {
 		JFrame frame = new JFrame("Word-Swapper");
 
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 		Dimension screenDimensions = Toolkit.getDefaultToolkit().getScreenSize();
 
 		int height = (int) (screenDimensions.getHeight() / FRAME_REDUCTION);
@@ -104,6 +106,7 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cl.show(mainPanel, INDEX_APRENDER);
+				Learn.init();
 			}
 		});
 

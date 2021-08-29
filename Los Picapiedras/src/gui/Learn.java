@@ -18,7 +18,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import sounds.TranslatorSounds;
+
 public class Learn {
+
+	private static TranslatorSounds ts = new TranslatorSounds();
+
+	public static boolean isEnable = false;
 
 	private static JPanel pnlTop = new JPanel();
 	private static JPanel pnlMiddle = new JPanel();
@@ -127,6 +133,11 @@ public class Learn {
 		pnlTop.revalidate();
 
 		String curr = current.replace(".png", "");
+
+		if (GUI.isSoundEnable && isEnable) {
+			getLearnSoundName();
+		}
+
 		lblText.setText(curr);
 	}
 
@@ -143,6 +154,25 @@ public class Learn {
 		System.out.println(current);
 
 		return current;
+	}
+
+	public static void getLearnSoundName() {
+
+		if (GUI.isSoundEnable) {
+			Runnable r = new Runnable() {
+
+				public void run() {
+
+					ts.playStringSound(current.replace(".png", ""));
+				}
+			};
+			new Thread(r).start();
+		}
+	}
+
+	public static void init() {
+		isEnable = true;
+		getLearnSoundName();
 	}
 
 }
