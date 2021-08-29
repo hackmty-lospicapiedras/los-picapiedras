@@ -36,7 +36,7 @@ public class Translator {
 	private static final Color BLUE = new Color(115, 165, 186);
 	private static final Color PANEL_BACKGROUND_COLOR = new Color(45, 45, 45);
 	private static final Color SCROLL_BAR = new Color(60, 60, 60);
-	
+
 	public JPanel createContentTraductor() {
 		JPanel panel = new JPanel();
 
@@ -111,7 +111,7 @@ public class Translator {
 
 	private static JPanel createScrollPaneTraductor() {
 		JPanel panel = new JPanel();
-		
+
 		int height = 120;
 		panel.setMinimumSize(new Dimension(10, height));
 		panel.setPreferredSize(new Dimension(10, height));
@@ -143,7 +143,7 @@ public class Translator {
 		return panel;
 	}
 
-	private static JPanel createButtonTraductor() {
+	private JPanel createButtonTraductor() {
 		JPanel panel = new JPanel();
 		panel.setBackground(null);
 		panel.setLayout(new GridLayout(1, 1));
@@ -177,7 +177,7 @@ public class Translator {
 		return panel;
 	}
 
-	private static void addImagesToOutput() {
+	private void addImagesToOutput() {
 		spContainer.removeAll();
 
 		String text = taTraductorInput.getText();
@@ -202,19 +202,21 @@ public class Translator {
 		spOutput.repaint();
 	}
 
-	private static JLabel createImage(char imageName) {
+	private JLabel createImage(char imageName) {
 		ImageIcon icon;
 
 		String name = Character.toString(imageName);
 		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 		if (letters.contains(name)) {
-			icon = new ImageIcon("Braille/" + name + ".png");
+//			icon = new ImageIcon(getClass().getClassLoader().getResource("Braille/" + name + ".png"));
+			icon = new ImageIcon(getClass().getClassLoader().getResource(name + ".png"));
 		}
 		else {
-			icon = new ImageIcon("Braille/null.png");
+//			icon = new ImageIcon(getClass().getClassLoader().getResource("Braille/null.png"));
+			icon = new ImageIcon(getClass().getClassLoader().getResource("null.png"));
 		}
-		
+
 		int x = 15;
 
 		Image scaledImage = icon.getImage().getScaledInstance(50 + x, 70 + x, Image.SCALE_DEFAULT);

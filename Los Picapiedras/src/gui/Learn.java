@@ -37,10 +37,10 @@ public class Learn {
 	private static JButton btn3 = new JButton("3");
 	private static JButton btn4 = new JButton("4");
 
-	private static String[] fileNames = getFileNames("Answers/");
+	private static String[] fileNames;
 
 	private static int currentCorrectAnswer = getRandomInt();
-	private static String correctAnswer = selectRandom(fileNames);
+	private static String correctAnswer;
 
 	private static final Color GREY_BUTTON = new Color(54, 54, 54);
 	private static final Color BLUE = new Color(115, 165, 186);
@@ -50,6 +50,9 @@ public class Learn {
 
 	public JPanel createContentLearn() {
 		JPanel panel = new JPanel();
+
+		fileNames = getFileNames("Answers/");
+		correctAnswer = selectRandom(fileNames);
 
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		panel.setBackground(null);
@@ -77,13 +80,13 @@ public class Learn {
 		pnlBot.setLayout(new GridLayout(2, 2, 30, 30));
 	}
 
-	private static void configTopPanel() {
+	private void configTopPanel() {
 		pnlTop.add(lblImage);
 		pnlTop.setMaximumSize(new Dimension(10000, 150));
 		changeImage(selectRandom(fileNames));
 	}
 
-	private static void configBotPanel() {
+	private void configBotPanel() {
 		btn1 = createButton(1, "1");
 		btn2 = createButton(2, "2");
 		btn3 = createButton(3, "3");
@@ -97,8 +100,8 @@ public class Learn {
 		changeButtonColor(true, 0);
 	}
 
-	private static void changeImage(String imageName) {
-		ImageIcon icon = new ImageIcon("Answers/" + imageName);
+	private void changeImage(String imageName) {
+		ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource(imageName));
 
 		int x = 150;
 
@@ -112,7 +115,7 @@ public class Learn {
 		pnlTop.revalidate();
 	}
 
-	private static JButton createButton(int identifier, String title) {
+	private JButton createButton(int identifier, String title) {
 		JButton button = new JButton(title);
 
 		button.setBackground(GREY_BUTTON);
@@ -131,7 +134,7 @@ public class Learn {
 		return button;
 	}
 
-	private static void checkAnswer(int answer) {
+	private void checkAnswer(int answer) {
 		Random r = new Random();
 		int max = 4;
 		int min = 1;
@@ -155,16 +158,28 @@ public class Learn {
 		}
 	}
 
-	private static String[] getFileNames(String dir) {
-		File[] files = new File(dir).listFiles();
+	private String[] getFileNames(String dir) {
+		// File[] files = new File(dir).listFiles();
 
-		String[] array = new String[files.length];
+		// File[] files = new
+		// File(getClass().getClassLoader().getResource("/Answers").getFile()).listFiles();
+		//
+		// String[] array = new String[files.length];
+		//
+		// for (int i = 0; i < array.length; i++) {
+		// if (files[i].isFile()) {
+		// array[i] = files[i].getName();
+		// }
+		// }
 
-		for (int i = 0; i < array.length; i++) {
-			if (files[i].isFile()) {
-				array[i] = files[i].getName();
-			}
-		}
+		String[] array = { "a.png", "and.png", "ar.png", "b, but.png", "by, was.png", "c, can.png", "cc, con.png",
+				"ch, child.png", "com.png", "d.png", "dd, dis.png", "e, every.png", "ea.png", "ed.png",
+				"en, enough.png", "er.png", "f, from.png", "ff, to.png", "for.png", "g, go.png", "gg, were.png",
+				"gh.png", "h, have.png", "i.png", "in.png", "ing.png", "j, just.png", "k, knowledge.png", "l, like.png",
+				"m, more.png", "n, not.png", "o.png", "of.png", "ou, out.png", "ow.png", "p, people.png",
+				"q, quite.png", "r, rather.png", "s.png", "sh, shall.png", "st, still.png", "t, that.png",
+				"th, this.png", "the.png", "u, us.png", "v, very.png", "w, will.png", "wh, which.png", "with.png",
+				"x, it.png", "y, you.png", "z, as.png", };
 
 		return array;
 	}
@@ -180,7 +195,7 @@ public class Learn {
 		return array[rand];
 	}
 
-	private static void changeButtonColor(boolean isCorrect, int identifier) {
+	private void changeButtonColor(boolean isCorrect, int identifier) {
 		if (isCorrect) {
 			if (identifier == 1) {
 				btn1.setBackground(GREEN_CORRECT);
@@ -233,7 +248,7 @@ public class Learn {
 		}
 	}
 
-	private static void resetButtons() {
+	private void resetButtons() {
 		btn1.setBackground(GREY_BUTTON);
 		btn2.setBackground(GREY_BUTTON);
 		btn3.setBackground(GREY_BUTTON);
