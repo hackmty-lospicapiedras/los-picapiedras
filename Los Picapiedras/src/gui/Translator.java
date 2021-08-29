@@ -32,7 +32,7 @@ public class Translator {
 	private static JScrollPane spOutput;
 
 	private static JTextArea taTraductorInput;
-	
+
 	private static JButton btnTranslate;
 
 	private static final Color GREY_TEXT_COLOR = new Color(237, 237, 237);
@@ -209,7 +209,7 @@ public class Translator {
 		spOutput.repaint();
 
 		btnTranslate.setEnabled(false);
-		
+
 		Runnable r = new Runnable() {
 
 			public void run() {
