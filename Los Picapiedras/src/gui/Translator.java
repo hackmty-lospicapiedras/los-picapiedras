@@ -208,26 +208,26 @@ public class Translator {
 		spOutput.revalidate();
 		spOutput.repaint();
 
-		btnTranslate.setEnabled(false);
+		if (GUI.isSoundEnable) {
+			btnTranslate.setEnabled(false);
+			Runnable r = new Runnable() {
 
-		Runnable r = new Runnable() {
-
-			public void run() {
-				for (char c : charArray) {
-					if (c == ' ') {
-						ts.playSpaceSound();
-						continue;
+				public void run() {
+					for (char c : charArray) {
+						if (c == ' ') {
+							ts.playSpaceSound();
+							continue;
+						}
+						if (c == '\n') {
+							continue;
+						}
+						ts.playCharacterSound(c);
 					}
-					if (c == '\n') {
-						continue;
-					}
-					ts.playCharacterSound(c);
+					btnTranslate.setEnabled(true);
 				}
-				btnTranslate.setEnabled(true);
-			}
-		};
-
-		new Thread(r).start();
+			};
+			new Thread(r).start();
+		}
 	}
 
 	private JLabel createImage(char imageName) {

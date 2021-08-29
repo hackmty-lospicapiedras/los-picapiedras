@@ -22,9 +22,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import sounds.TranslatorSounds;
+
 public class Practice {
 
+	private static TranslatorSounds ts = new TranslatorSounds();
+
 	private static boolean isFirst = true;
+	private static boolean isFirst2 = true;
 
 	private static JPanel pnlTop = new JPanel();
 	private static JPanel pnlBot = new JPanel();
@@ -192,6 +197,11 @@ public class Practice {
 				btn4.setBackground(GREEN_CORRECT);
 				btn4.setForeground(DARK_GREY);
 			}
+			
+			btn1.setEnabled(false);
+			btn2.setEnabled(false);
+			btn3.setEnabled(false);
+			btn4.setEnabled(false);
 
 			if (!isFirst) {
 				ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
@@ -201,6 +211,7 @@ public class Practice {
 				executor.schedule(task, 1500, TimeUnit.MILLISECONDS);
 				executor.shutdown();
 			}
+			
 			else {
 				isFirst = false;
 				resetButtons();
@@ -236,9 +247,17 @@ public class Practice {
 		btn2.setForeground(BLUE);
 		btn3.setForeground(BLUE);
 		btn4.setForeground(BLUE);
+		btn1.setEnabled(true);
+		btn2.setEnabled(true);
+		btn3.setEnabled(true);
+		btn4.setEnabled(true);
 
 		correctAnswer = selectRandom(fileNames);
 		changeImage(correctAnswer);
+
+		if (!isFirst2) {
+			getPracticeSoundName();
+		}
 
 		changeButtonTexts();
 	}
@@ -350,4 +369,24 @@ public class Practice {
 		return r.nextInt((4 - 1) + 1) + 1;
 	}
 
+	public static void getPracticeSoundName() {
+
+		if (GUI.isSoundEnable) {
+			Runnable r = new Runnable() {
+
+				public void run() {
+
+					ts.playStringSound(correctAnswer);
+				}
+			};
+			new Thread(r).start();
+		}
+	}
+
+	public static void init() {
+		if (!isFirst) {
+			getPracticeSoundName();
+			isFirst2 = false;
+		}
+	}
 }
