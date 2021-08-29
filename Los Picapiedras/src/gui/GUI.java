@@ -8,14 +8,19 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class GUI {
+
+	public static boolean isSoundEnable = true;
 
 	private static final double FRAME_REDUCTION = 1.3;
 	private static final String INDEX_CONFIG = "1";
@@ -33,8 +38,9 @@ public class GUI {
 
 	private static JMenuItem mnTraductor;
 	private static JMenuItem mnAprender;
-	private static JMenuItem mnConfig;
 	private static JMenuItem mnPracticar;
+
+	private static JCheckBoxMenuItem mnConfig;
 
 	private static final Color PANEL_GREY_BACKGROUND = new Color(36, 36, 36);
 
@@ -79,17 +85,6 @@ public class GUI {
 		JMenuBar menuBar = new JMenuBar();
 
 		int fontSize = 15;
-		
-		mnConfig = new JMenuItem("Config");
-		mnConfig.setMnemonic(KeyEvent.VK_C);
-		mnConfig.setFont(new Font("Verdana", Font.BOLD, fontSize));
-		mnConfig.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cl.show(mainPanel, INDEX_CONFIG);
-			}
-		});
 
 		mnTraductor = new JMenuItem("Translator");
 		mnTraductor.setMnemonic(KeyEvent.VK_T);
@@ -101,7 +96,7 @@ public class GUI {
 				cl.show(mainPanel, INDEX_TRADUCTOR);
 			}
 		});
-		
+
 		mnAprender = new JMenuItem("Learn");
 		mnAprender.setMnemonic(KeyEvent.VK_A);
 		mnAprender.setFont(new Font("Verdana", Font.BOLD, fontSize));
@@ -112,7 +107,7 @@ public class GUI {
 				cl.show(mainPanel, INDEX_APRENDER);
 			}
 		});
-		
+
 		mnPracticar = new JMenuItem("Practice");
 		mnPracticar.setMnemonic(KeyEvent.VK_P);
 		mnPracticar.setFont(new Font("Verdana", Font.BOLD, fontSize));
@@ -124,10 +119,28 @@ public class GUI {
 			}
 		});
 
-		menuBar.add(mnConfig);
+		mnConfig = new JCheckBoxMenuItem("Spoken Content");
+		mnConfig.setMnemonic(KeyEvent.VK_C);
+		mnConfig.setFont(new Font("Verdana", Font.BOLD, fontSize));
+		mnConfig.setSelected(true);
+		mnConfig.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				Object source = e.getItemSelectable();
+				if (source == mnConfig && e.getStateChange() == ItemEvent.SELECTED) {
+					isSoundEnable = true;
+				}
+				if (source == mnConfig && e.getStateChange() == ItemEvent.DESELECTED) {
+					isSoundEnable = false;
+				}
+			}
+		});
+
 		menuBar.add(mnTraductor);
 		menuBar.add(mnAprender);
 		menuBar.add(mnPracticar);
+		menuBar.add(mnConfig);
 
 		return menuBar;
 	}

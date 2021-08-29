@@ -11,7 +11,7 @@ public class TranslatorSounds {
 
 	public void playCharacterSound(char c) {
 		c = Character.toLowerCase(c);
-		
+
 		if (c == 'a') {
 			play(SoundsDictionary.a);
 		}
@@ -90,7 +90,7 @@ public class TranslatorSounds {
 		else if (c == 'z') {
 			play(SoundsDictionary.z);
 		}
-		
+
 		try {
 			Thread.sleep(450);
 		} catch (InterruptedException e) {
@@ -120,7 +120,7 @@ public class TranslatorSounds {
 			}
 		}
 	}
-	
+
 	public void playSpaceSound() {
 		byte[] buffer = new byte[4096];
 		URL url = getClass().getClassLoader().getResource("but" + ".wav");
