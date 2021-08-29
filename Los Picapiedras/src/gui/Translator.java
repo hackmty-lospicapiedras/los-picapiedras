@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -87,7 +88,7 @@ public class Translator {
 		ta.setBackground(GREY_TEXT_AREA);
 		ta.setForeground(GREY_TEXT_COLOR);
 		ta.setCaretColor(WHITE);
-		ta.setFont(new Font("Verdana", Font.BOLD, 16));
+		ta.setFont(new Font("Verdana", Font.BOLD, 24));
 
 		return ta;
 	}
@@ -108,7 +109,15 @@ public class Translator {
 		return sp;
 	}
 
-	private static JScrollPane createScrollPaneTraductor() {
+	private static JPanel createScrollPaneTraductor() {
+		JPanel panel = new JPanel();
+		
+		int height = 120;
+		panel.setMinimumSize(new Dimension(10, height));
+		panel.setPreferredSize(new Dimension(10, height));
+		panel.setMaximumSize(new Dimension(10000, height));
+		panel.setLayout(new GridLayout(1, 1));
+
 		spContainer = new JPanel();
 		spContainer.setLayout(new BoxLayout(spContainer, BoxLayout.LINE_AXIS));
 		spContainer.setBackground(GREY_TEXT_AREA);
@@ -118,7 +127,6 @@ public class Translator {
 		spContainer.setBorder(BorderFactory.createEmptyBorder(inT, inS, inT, inS));
 
 		spOutput = new JScrollPane(spContainer);
-		spOutput.setMaximumSize(new Dimension(4000, 1900));
 		spOutput.createHorizontalScrollBar();
 		spOutput.setBackground(null);
 		spOutput.getHorizontalScrollBar().setBackground(PANEL_BACKGROUND_COLOR);
@@ -130,11 +138,9 @@ public class Translator {
 			}
 		});
 
-		for (int i = 0; i < 100; i++) {
-			spContainer.add(createImage("C:\\Users\\gabal\\Desktop\\Downloads\\h.png"));
-		}
+		panel.add(spOutput);
 
-		return spOutput;
+		return panel;
 	}
 
 	private static JPanel createButtonTraductor() {
@@ -174,14 +180,20 @@ public class Translator {
 	private static void addImagesToOutput() {
 		spContainer.removeAll();
 
-		for (int i = 0; i < 10; i++) {
-			spContainer.add(createImage2());
-		}
+		String text = taTraductorInput.getText();
 
-		spContainer.add(Box.createRigidArea(new Dimension(25, 0)));
+		char[] charArray = text.toCharArray();
 
-		for (int i = 0; i < 10; i++) {
-			spContainer.add(createImage2());
+		for (char c : charArray) {
+			if (c == ' ') {
+				spContainer.add(Box.createRigidArea(new Dimension(25, 0)));
+				continue;
+			}
+			if (c == '\n') {
+				spContainer.add(Box.createRigidArea(new Dimension(75, 0)));
+				continue;
+			}
+			spContainer.add(createImage(c));
 		}
 
 		spContainer.revalidate();
@@ -190,16 +202,25 @@ public class Translator {
 		spOutput.repaint();
 	}
 
-	private static JLabel createImage(String dir) {
-		ImageIcon icon = new ImageIcon(dir);
+	private static JLabel createImage(char imageName) {
+		ImageIcon icon;
 
-		return new JLabel(icon);
-	}
+		String name = Character.toString(imageName);
+		String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-	private static JLabel createImage2() {
-		ImageIcon icon = new ImageIcon("C:\\Users\\gabal\\Desktop\\Downloads\\w.png");
+		if (letters.contains(name)) {
+			icon = new ImageIcon("Braille/" + name + ".png");
+		}
+		else {
+			icon = new ImageIcon("Braille/null.png");
+		}
+		
+		int x = 15;
 
-		return new JLabel(icon);
+		Image scaledImage = icon.getImage().getScaledInstance(50 + x, 70 + x, Image.SCALE_DEFAULT);
+		ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+		return new JLabel(scaledIcon);
 	}
 
 }
