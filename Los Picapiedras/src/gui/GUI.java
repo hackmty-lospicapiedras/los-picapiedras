@@ -29,6 +29,7 @@ public class GUI {
 	private static JPanel pnlConfig;
 	private static JPanel pnlTraductor;
 	private static JPanel pnlAprender;
+	private static JPanel pnlPracticar;
 
 	private static JMenuItem mnTraductor;
 	private static JMenuItem mnAprender;
@@ -39,6 +40,7 @@ public class GUI {
 
 	private static Translator translator = new Translator();
 	private static Learn learn = new Learn();
+	private static Practice practice = new Practice();
 
 	private static CardLayout cl = new CardLayout();
 
@@ -139,7 +141,7 @@ public class GUI {
 		mainPanel.add(pnlConfig, INDEX_CONFIG);
 		mainPanel.add(pnlTraductor, INDEX_TRADUCTOR);
 		mainPanel.add(pnlAprender, INDEX_APRENDER);
-		mainPanel.add(pnlAprender, INDEX_PRACTICAR);
+		mainPanel.add(pnlPracticar, INDEX_PRACTICAR);
 
 		cl.show(mainPanel, INDEX_TRADUCTOR);
 
@@ -150,9 +152,11 @@ public class GUI {
 		pnlConfig = configSubPanel();
 		pnlTraductor = configSubPanel();
 		pnlAprender = configSubPanel();
+		pnlPracticar = configSubPanel();
 
 		pnlTraductor.add(translator.createContentTraductor());
 		pnlAprender.add(learn.createContentLearn());
+		pnlPracticar.add(practice.createContentPractice());
 	}
 
 	private static JPanel configSubPanel() {
